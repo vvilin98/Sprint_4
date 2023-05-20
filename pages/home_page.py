@@ -1,7 +1,9 @@
-from pages.base_page import BasePage
-from utils.locators import YaScooterHomePageLocator as Locators
 import allure
-
+from pages.base_page import BasePage
+from utils.locators import BasePageLocator
+from selenium.webdriver.support.wait import WebDriverWait
+from utils.locators import YaScooterHomePageLocator as Locators
+from selenium.webdriver.support import expected_conditions as EC
 
 class YaScooterHomePage(BasePage):
     @allure.step('Нажать на кнопку заказа вверху страницы')
@@ -16,3 +18,14 @@ class YaScooterHomePage(BasePage):
     def click_faq_question(self, question_number: int):
         elems = self.find_elements(Locators.FAQ_BUTTONS, 10)
         return elems[question_number].click()
+
+    @allure.step('Переключиться на вкладку браузера')
+    def switch_window(self, window_number: int = 1):
+        return self.driver.switch_to.window(self.driver.window_handles[window_number])
+
+    def wait_url_until_not_about_blank(self, time=10):
+        return WebDriverWait(self.driver, time).until_not(EC.url_to_be('about:blank'))
+
+    @allure.step('Перейти на страницу яндекса')
+    def click_yandex_button(self):
+        return self.find_element(BasePageLocator.YANDEX_SITE_BUTTON).click()
