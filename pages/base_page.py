@@ -2,12 +2,11 @@ import allure
 from utils.urls import Urls
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utils.locators import BasePageLocator
+
 
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
-        self.base_url = Urls.MAIN_PAGE
 
     def find_element(self, locator, time=10):
         return WebDriverWait(self.driver, time).until(EC.presence_of_element_located(locator),
@@ -17,16 +16,11 @@ class BasePage:
         return WebDriverWait(self.driver, time).until(EC.presence_of_all_elements_located(locator),
                                                       message=f"Can't find elements by locator {locator}")
 
-    @allure.step('Принять куки')
-    def click_cookie_accept(self):
-        return self.find_element(BasePageLocator.COOKIE_ACCEPT_BUTTON).click()
-
     @allure.step('Перейти по адресу')
     def go_to_site(self, url=None):
         if url is None:
-            url = self.base_url
+            url = Urls.MAIN_PAGE
         self.driver.get(url)
-        return self.click_cookie_accept()
 
     @allure.step('Получить текущий URL')
     def current_url(self):

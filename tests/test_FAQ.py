@@ -25,6 +25,7 @@ class TestYaScooterFAQPage:
     def test_faq_click_first_question_show_answer(self, driver, question, answer, expected_answer):
         ya_scooter_home_page = YaScooterHomePage(driver)
         ya_scooter_home_page.go_to_site()
+        ya_scooter_home_page.click_cookie_accept()
         ya_scooter_home_page.click_faq_question(question_number=question)
         answer = ya_scooter_home_page.find_element(YaScooterHomePageLocator.FAQ_ANSWER(answer_number=answer))
 
