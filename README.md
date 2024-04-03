@@ -36,4 +36,4 @@ pytest --cov=main
 ```bash
 pytest --cov=main --cov-report=html
 ```
-
+## Покрытие
