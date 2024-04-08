@@ -36,4 +36,5 @@ pytest --cov=main
 ```bash
 pytest --cov=main --cov-report=html
 ```
-## Покрытие
+
+p.s Добавлен бот комментатор который пишет покрытие в пулл реквест
